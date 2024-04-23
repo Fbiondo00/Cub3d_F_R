@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:52:12 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/17 02:17:30 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/21 17:36:18 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
+#define DEBUG 1
 
 #if defined(__APPLE__)
 #define ESC 53
@@ -41,7 +42,7 @@
 #elif defined(__linux__) || defined(__gnu_linux__)
 #define ESC 65307
 #define W 119
-#define A 93
+#define A 97
 #define S 115
 #define D 100
 #define UP 65362
@@ -106,9 +107,9 @@ typedef struct s_ray
     // cardinal's .xpm to render
     int cardinal;
     // --
-    int ndc;
+    double ndc;
     int side;
-    int wall_dist;
+    double wall_dist;
     int wall_x;
     int line_height;
     int draw_start;
@@ -120,9 +121,9 @@ typedef struct s_ray
 
 typedef struct s_player
 {
-    char dir;
     t_coordinate position;
     t_coordinate direction;
+    char dir;
     t_coordinate cam_plane;
     // - key press -
     t_coordinate move;
@@ -133,7 +134,7 @@ typedef struct s_player
 typedef struct s_color
 {
     char *path;
-    unsigned int hex;
+    unsigned long hex;
     
 } t_color;
 
@@ -146,6 +147,7 @@ typedef struct s_game
     int     win_height;
     int     win_width;
     char    **map;
+    int     map_len;
     long    old_time;
     int     fps;
     // ---
@@ -154,6 +156,8 @@ typedef struct s_game
     int     map_transferred;
     char    *path;
     // ---
+    double  pix_step;
+    double  pix_pos;
     int     **pixels;
     int     **textures;
     t_ray ray;
@@ -202,13 +206,17 @@ void clean_exit(t_game *game, int exit_status);
 int  throw_exception(char *msg, char *specific, char *sub_specific);
 //--ft_calloc.c
 void	*ft_calloc(int count, int size);
+int	ft_atoi(const char *str);
+char	**ft_split(char *s, char c);
+void print_ray_stats(t_game *game);
+void print_player_stats(t_game *game);
 
 //CHECKER
-int parse_map(t_game *game);
 //--file.c
 void count_file_lines(t_game *game);
 void read_file(t_game *game);
 void check_input(t_game *game, char *format, char *path);
+int parse_map(t_game *game);
 
 //BUILDER
 //--build_game.c
@@ -219,6 +227,8 @@ void display_menu();
 void parse_cardinal(t_game *game);
 //--parse_color.c
 void parse_color(t_game *game);
+//--parse_player.c
+void parse_player(t_game *game);
 
 //ENGINE
 //--key_bind.c

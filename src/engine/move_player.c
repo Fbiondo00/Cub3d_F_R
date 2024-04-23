@@ -6,19 +6,11 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 23:21:32 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/02 17:30:59 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 16:04:29 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cube.h"
-
-int move_player(t_game *game, int new_y, int new_x)
-{
-    (void) game;
-    (void) new_x;
-    (void) new_y;
-    return 1;
-}
 
 //  the function is responsible for rotating the player's view 
 /**
@@ -28,31 +20,100 @@ int move_player(t_game *game, int new_y, int new_x)
  * rotation speed, adjusting the direction of the player's vision.
  *
  * @param game Pointer to the game data structure containing player information.
- * @param rotspeed The rotation speed for the player's view.
  * @return 1 always indicating the rotation is successful.
  */
 int rotate_player_view(t_game *game)
 {
-    (void)game;
+    t_player	*p;
+    double	tmp;
+    double	rotation;
     
-    return 1;
+    printf(">in rotate_player_view\n");
+    p = &game->player;
+	rotation = 0.055 * game->player.rotate;
+    tmp = p->direction.x;
+	p->direction.x = p->direction.x * cos(rotation) - p->direction.y * sin(rotation);
+	p->direction.y = tmp * sin(rotation) + p->direction.y * cos(rotation);
+	tmp = p->cam_plane.x;
+	p->cam_plane.x = p->cam_plane.x * cos(rotation) - p->cam_plane.y * sin(rotation);
+	p->cam_plane.y = tmp * sin(rotation) + p->cam_plane.y * cos(rotation);
+    return (1);
 }
 
-int check_movement(t_game *game, int y, int x)
+int is_valid(t_game *game, int x, int y)
 {
-    int new_x;
-    int new_y;
-    int res;
+    double safe_net;
 
-    res = 0;
-    new_x = game->player.position.x + x;
-    new_y = game->player.position.y + y;
-    if (game->map[new_y][new_x] == '0')
-        res = move_player(game, new_y, new_x);
-    // if (game->map[new_y][new_x] == '1')
-    //     return (0);
-    return (res);
+    safe_net = 0.25;
+    if (x < safe_net || x >= WIN_WIDTH - 1 - safe_net)
+		return (0);
+	if (y < safe_net || y >= WIN_HEIGHT  - 1 * safe_net)
+		return (0);
+    if (game->map[(int)y][(int)x] == '1')
+        return (0);
+    return (1);
 }
+
+int move_player(t_game *game, int x, int y)
+{
+    double new_x;
+    double new_y;
+    t_player *p;
+
+    p = &game->player;
+    // printf("in move_player!\n");
+    // printf("p->position.x:%f\n", p->position.x);
+    // printf("p->position.y:%f\n", p->position.y);
+    // printf("p->direction.x:%f\n", p->direction.x);
+    // printf("p->direction.y:%f\n", p->direction.y);
+    if (p->move.x == 1 || p->move.x == -1)
+    {
+        new_x = p->position.x + (p->direction.y * x) * 0.05;
+        new_y = p->position.y + (p->direction.x * y) * 0.05;
+    }
+    else
+    {
+        new_x = p->position.x + (p->direction.x * x) * 0.05;
+        new_y = p->position.y + (p->direction.y * y) * 0.05;
+    }
+    // printf("new_x:%f\n", new_x);
+    // printf("new_y:%f\n", new_y);
+    
+    // printf("game->map[(int)new_y][(int)new_x]:%c\n", game->map[(int)new_y][(int)new_x]);
+    if (is_valid(game, new_x,  new_y))// &&game->map[(int)new_y][(int)new_x] == '0')
+    {
+        printf("ciao\n");
+        game->player.position.x = new_x;
+        game->player.position.y = new_y;
+        return (1);
+    }
+    printf("esce con 0 da move_player!\n");
+    return (0);
+}
+
+// int check_movement(t_game *game)
+// {
+//     double new_x;
+//     double new_y;
+//     int res;
+
+//     printf(">in check_movement\n");
+//     res = 0;
+//     new_x = game->player.position.x + x * 0.01;
+//     new_y = game->player.position.y + y * 0.01;
+//     printf("new_x:%f|new_y:%f\n", new_x, new_y);
+//     printf("game->map[new_y][new_x]:%c\n", game->map[(int)new_y][(int)new_x]);
+//     if (is_valid(new_x,  new_y) && 
+//         game->map[(int)new_y][(int)new_x] == '0')
+//     {
+//         printf("ciao\n");
+//         game->player.position.x = new_x;
+//         game->player.position.y = new_y;
+//         res = 1;
+//     }
+//     printf(">esce check_movement, res:%d\n", res);
+//     return (res);
+// }
 
 int has_moved(t_game *game)
 {
@@ -64,9 +125,15 @@ int has_moved(t_game *game)
 
     has_moved = 0;
     p = &game->player;
-    if (p->move.x != 0 || p->move.y != 0)
-        has_moved = check_movement(game, p->move.x, p->move.y);
+    if (p->move.x == -1)
+        has_moved = move_player(game, 1, -1);
+    if (p->move.x == 1)
+        has_moved = move_player(game, -1, 1);
+    if (p->move.y == -1)
+        has_moved = move_player(game, 1, 1);
+    if (p->move.y == 1)
+        has_moved = move_player(game, -1, -1);
     if (p->rotate != 0)
-        has_moved = rotate_player_view(game); //TODO
+        has_moved = rotate_player_view(game);
     return (has_moved);
 }

@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 03:50:26 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/03/17 03:58:26 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/22 15:55:45 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void set_step_and_side_distance(t_game *game)
 		ray->step.y = 1;
 		ray->side_distance.y = (ray->player_pos.y + 1.0 - player->position.y) * ray->delta_distance.y;
 	}
+    // printf(">>>>IN set_step_and_side_distance\n");
+    // print_ray_stats(game);
+    // print_player_stats(game); 
 }
 
 void update_ray_position_to_next_wall(t_game *game)
@@ -91,13 +94,18 @@ void perform_digital_differential_analysis(t_game *game)
     ray = &game->ray;
     while (hit == 0)
 	{
+        // printf("HIT == 0\n");
 		update_ray_position_to_next_wall(game);
 		 // Adding buffer margins to handle map boundaries
-        if (ray->player_pos.x < 0.25 || ray->player_pos.y < 0.25
-            || ray->player_pos.x >= game->win_height - 1.25
-            || ray->player_pos.y >= game->win_height - 1.25)
+        if (ray->player_pos.y < 0.25 
+            || ray->player_pos.x < 0.25
+            || ray->player_pos.y > game->win_height - 1.25
+            || ray->player_pos.x > game->win_width - 1.25)
             hit = 1;
         else if (game->map[(int)ray->player_pos.y][(int)ray->player_pos.x] == '1')
             hit = 1;
 	}
+    // printf(">>>>DOPO perform_digital_differential_analysis\n");
+    // print_ray_stats(game);
+    // print_player_stats(game);
 }

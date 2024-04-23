@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:50:28 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/17 01:43:49 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/20 03:24:28 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cube.h"
 
 //TODO:
-// 1) MAKEFILE COMPILE V
-// 2) FINISH FUNCTION
-// 3) IMPORT MAPS && TESTS
-// 4) CHECK RENDER FLOW V
+// ./obj?
+// check NSWE, map.exc
 
 void	ft_print_mat(char **mat)
 {
@@ -33,7 +31,7 @@ void	ft_print_mat(char **mat)
 			x++;
 		}
 		y++;
-		write(1, "\n", 1);
+		// write(1, "\n", 1);
 	}
 }
 
@@ -82,7 +80,7 @@ void build_game(t_game *game)
     //          3.4.C)convert rgb
     //          3.4.D)check texture validity
     parse_game(game);
-    ft_print_mat(game->map);
+
   
     //      4.2)mlx hooks config
     key_bind(game);

@@ -61,7 +61,7 @@ $(NAME): $(OBJS)
 		printf "."; \
 		sleep 1; \
 	 done; \
-	 $(CC) $(OBJS) -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit -o $(NAME); \
+	 $(CC) $(OBJS) -L$(MLX_DIR) -L ./libft -lft -L ./mlx_linux -lmlx -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME); \
 	 printf "\n"; \
 	 printf "\n"; \
 	 printf "\n"; \
