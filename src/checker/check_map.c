@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:56:47 by flaviobiond       #+#    #+#             */
-/*   Updated: 2024/04/21 01:17:41 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/23 23:06:27 by flaviobiond      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,24 @@ int check_wall(t_game *game)
 		return(-1);
 		i++;
 	}
+	i = 0;
+	while(i < (int)ft_strlen(game->map[0]))
+	{
+		if(game->map[0][i] != 32 && game->map[0][i] != '1' && !(game->map[0][i] >= 9 && game->map[0][i] <= 13))
+		return(-1);
+		i++;
+	}
 	return(0);
 }
 
-void check_doble_p (t_game *game, int x,int y ,int *counter)
+void check_double_p (t_game *game, int x,int y ,int *counter)
 {
 	if (ft_strchr("NSWE", game->map[y][x]))	
 	 {
 		game->player.dir = game->map[y][x];
 		game->player.position.x = (double)x + 0.5;
 		game->player.position.y = (double)y + 0.5;
-		game->map[y][x] = 0;
+		game->map[y][x] = '0';
 		(*counter)++;
 	}
 	if(*counter > 1)
@@ -89,17 +96,13 @@ void	parse_space(t_game *game)
 
 	c = 0;
 	y = 0;
-	printf("entra parse_space\n");
-	if(check_wall(game))
-		clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_MAP_WALLS, NULL));
-	printf("dopo check_wall\n");
 	while (y < game->map_len)
 	{
 		x = 0;
 		while (x < (int) ft_strlen(game->map[y]))
 		{
 			if (ft_strchr("10NSWED", game->map[y][x]) )
-				check_doble_p(game, x, y, &c);
+				check_double_p(game, x, y, &c);
 			else if(game->map[y][x] >= 9 && game->map[y][x] <= 13)
 				game->map[y][x] = 'K';
 			else if(game->map[y][x] == ' ')
@@ -143,8 +146,10 @@ void convert_tab_space(t_game *game)
 
 int parse_map(t_game *game)
 {
-    printf("entra su parse_map\n");   
+    printf("entra su parse_map\n"); 
 	convert_tab_space(game);
+	if(check_wall(game))
+		clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_MAP_WALLS, NULL));
 	check_frame(game);
 	parse_space(game);
     printf("esce su parse_map\n");   
