@@ -48,7 +48,7 @@ size_t	get_word(const char *s, char c)
 		{
 			ret++;
 			while (*s && *s != c)
-				s++;
+				s++	;
 		}
 		else
 			s++;

@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//valgrind --leak-check=full --track-origins=yes ./cub3d assets/maps/1.cub
+
+
 #include "../include/cube.h"
 
 //TODO:
@@ -41,11 +44,11 @@ void build_game(t_game *game)
     init_game(game); // -> ??
     //      0.A) MLX CONFIGURATION  ->done
     //      0.B)init mlx && win
-    set_mlx(game);
 
     // 1)CHECK ARGC && .CUB EXTENSION
     check_input(game, CUB, game->argv[1]);
-
+    set_mlx(game);
+    //parse_map(game); 
     // 2.A)initial_parse file cub
     //      2.A.1)read line numbers
     //      2.A.2) alloc **matr && read file      ->done

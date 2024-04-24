@@ -17,15 +17,18 @@ void	free_matrix(void **matrix)
 	int	i;
 
 	i = 0;
-     if (matrix == NULL)
-        return ;
-	while (matrix[i])
+    if(matrix)
     {
-        free(matrix[i]);
-        i++;
-    }	
-	free(matrix);
-    matrix = NULL;
+	    while (matrix[i])
+        {
+            free(matrix[i]);
+            i++;
+        }	
+	    free(matrix);
+        matrix = NULL;
+    }
+    return ;
+
 }
 
 void free_color_and_walls(t_game *game)

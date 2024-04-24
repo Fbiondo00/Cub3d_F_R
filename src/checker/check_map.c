@@ -108,9 +108,9 @@ void	parse_space(t_game *game)
 			if (ft_strchr("10NSWED", game->map[y][x]) )
 				check_doble_p(game, x, y, &c);
 			else if(game->map[y][x] >= 9 && game->map[y][x] <= 13)
-				game->map[y][x] = 'K';
+				game->map[y][x] = '1';
 			else if(game->map[y][x] == ' ')
-				game->map[y][x] = 'K';
+				game->map[y][x] = '1';
 			else if(!ft_strchr("10NSWEDK \n", game->map[y][x]))
 					clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_INVALID_CHAR, NULL));
 			x++;
@@ -120,30 +120,75 @@ void	parse_space(t_game *game)
 	printf("esce parse_space\n");
 }
 
+
+int	count_tabs(char *str)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == '\t')
+			count += 4;
+		else
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+char	*replace_tabs(char *str, int count)
+{
+	char	*result;
+	int		j;
+	int		i;
+
+	result = (char *)malloc(count + 1);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\t')
+		{
+			result[j++] = ' ';
+			result[j++] = ' ';
+			result[j++] = ' ';
+			result[j++] = ' ';
+		}
+		else
+			result[j++] = str[i];
+		i++;
+	}
+	result[j] = '\0';
+	free(str);
+	return (result);
+}
+
+char	*replace_tab_with_spaces(char *str)
+{
+	int		count;
+
+	count = count_tabs(str);
+	str = replace_tabs(str, count);
+	return (str);
+}
 void convert_tab_space(t_game *game)
 {
-	int x;
 	int y;
 
 	y = 0;
     printf("entra\n");
 	printf("map_len:%d\n", game->map_len);
-	while(y < game->map_len)
-	{
-		x = 0;
-		while(x < (int) ft_strlen(game->map[y]))
+		while(game->map[y])
 		{
-			if(game->map[y][x] == 9)
-			{
-				game->map[y][x] = ' ';
-				game->map[y][++x] = ' ';
-				game->map[y][++x] = ' ';
-				game->map[y][++x] = ' ';
-			}
-			x++;
-		}
+			//printf("prova%s %d\n", game->map[y], (int) ft_strlen(game->map[y]));
+			
+				game->map[y] = replace_tab_with_spaces(game->map[y]);
 		y++;
-	}
+		}
+	
 
     printf("esce\n");
 }

@@ -83,7 +83,8 @@ void insert_map(t_game *game, int idx)
 
     i = 0;
     game->map_transferred = 1;
-    game->map = (char **)ft_calloc(game->n_lines_file - idx, sizeof(char *));
+    game->map = (char **)ft_calloc(game->n_lines_file - idx + 1, sizeof(char *));
+    printf("----------lengame->map%d\n", game->n_lines_file - idx);
     // game->map = (char **)malloc(sizeof(char *) * (game->n_lines_file - idx));
     printf("game->n_lines_file - idx:%d\n", game->n_lines_file - idx + 1);
     if (game->map == NULL)
@@ -91,7 +92,7 @@ void insert_map(t_game *game, int idx)
     while (idx < game->n_lines_file)
     {
         printf("inserting %d line: %s", i, game->raw_file[idx]);
-        game->map[i] = ft_strdup(game->raw_file[idx]);
+        game->map[i] = strdup(game->raw_file[idx]);
         i++;
         idx++;
     }
@@ -166,6 +167,7 @@ void transfer_info_file(t_game *game)
     count_file_lines(game); // count_lines?
     // read and set file
     read_file(game);
+    
     // transfer_info(game);
     while (i < game->n_lines_file && game->map_transferred != 1)
     {

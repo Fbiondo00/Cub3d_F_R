@@ -56,6 +56,7 @@ int *char_matrix_to_int(t_game *game, char **mat)
         rgb[i] = ft_atoi(mat[i]);
         i++;
     }
+    free(mat);
     return (rgb);
 }
 
@@ -76,6 +77,7 @@ int *get_rgb(t_game *game, int color)
         free_matrix((void **)mat);
         clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_MAP_COLOR, NULL));
     }
+
     return (char_matrix_to_int(game, mat));
 }
 
@@ -101,6 +103,7 @@ void convert_in_hexadecimal(t_game *game, int color)
         convert_rgb_to_hex(game, color, rgb); // converte rgb in hexadecimal
     else
         clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_MAP_COLOR, NULL));
+    free(rgb);
 }
 
 //parse_colors
