@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:50:28 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/20 03:24:28 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/24 15:25:42 by flaviobiond      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	ft_print_mat(char **mat)
 
 void build_game(t_game *game)
 {
-    if (game->argc != 2)
-        clean_exit(game, throw_exception(ERR_ARGC, NULL, NULL));
     // 0)INIT STRUCTURES TO DEFAULT VALUES
     init_game(game); // -> ??
     //      0.A) MLX CONFIGURATION  ->done
@@ -104,6 +102,8 @@ int main(int argc, char **argv)
     
     game.argc = argc;
     game.argv = argv;
+    if (argc != 2)
+        exit(0);
     build_game(&game);
     start_game(&game);
     run_game(&game);
