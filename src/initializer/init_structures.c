@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 23:41:09 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/21 17:36:15 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/25 23:16:45 by flaviobiond      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void init_game(t_game *game)
     game->map_len = 0;
     game->old_time = 0;
     game->fps = 0;
+    game->xmause = 42;
+    game->sp = 1;
     game->path = NULL;
     game->raw_file = NULL;
     game->n_lines_file = 0;

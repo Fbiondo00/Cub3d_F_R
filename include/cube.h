@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:52:12 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/23 19:25:30 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/25 23:13:41 by flaviobiond      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 #define WIN_HEIGHT 960
 #define WIN_WIDTH 1280
 #define TEXTURE_SIZE 64
+# define WS 0.10
+# define WC .05
+# define WC2 .01
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
@@ -167,6 +170,9 @@ typedef struct s_game
     t_img   walls[4];
     // FLOOR - CEALING
     t_color type[2];
+    // ---
+    int				sp;
+	int				xmause;
 } t_game;
 
 
