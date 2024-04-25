@@ -40,7 +40,7 @@ void read_file(t_game *game)
     char *str;
 
     i = 0;
-    game->raw_file = (char **)malloc(sizeof(char *) * (game->n_lines_file));
+    game->raw_file = (char **)calloc(sizeof(char *) , (game->n_lines_file + 1));
     if (game->raw_file == NULL)
         clean_exit(game, throw_exception(SYSTEM_EXCEPTION, ERR_MALLOC, NULL));
     fd = open(game->path, O_RDONLY);

@@ -26,8 +26,8 @@ int key_press(int keycode, t_game *game)
         game->player.rotate = -1;
     if (keycode == RIGHT)
         game->player.rotate = 1;
-    else if (keycode == ESC)
-        clean_exit(game, (int) write(1, "Player left the game!", 21) * 0);
+   else if (keycode == ESC)
+        clean_exit(game, throw_exception(SYSTEM_EXCEPTION, ERR_ELEMENT_NOT_FOUND, NULL));
     return (0);
 }
 
@@ -50,7 +50,9 @@ int key_release(int keycode, t_game *game)
 
 int quit(t_game *game)
 {
-    clean_exit(game, (int)write(1, "Player quit the game!", 21) * 0);
+    (void)game;
+    exit(0);
+    //clean_exit(game, throw_exception(SYSTEM_EXCEPTION, ERR_MALLOC, NULL));
     return (0);
 }
 

@@ -10,8 +10,7 @@ ENGINE = $(wildcard ./src/engine/*.c)
 INITIALIZER = $(wildcard ./src/initializer/*.c)
 RAYCASTER = $(wildcard ./src/raycaster/*.c)
 UTILS = $(wildcard ./src/utils/*.c)
-
-FLAGS = -Wextra -Werror -Wall
+FLAGS = -Wextra  -Wall -Werror 
 
 CC = gcc ${FLAGS}
 RM = rm -f

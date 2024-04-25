@@ -56,7 +56,7 @@ int *char_matrix_to_int(t_game *game, char **mat)
         rgb[i] = ft_atoi(mat[i]);
         i++;
     }
-    free(mat);
+    free_matrix((void **)mat);
     return (rgb);
 }
 

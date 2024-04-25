@@ -24,7 +24,7 @@ char	*ft_substr(char *s, int start, size_t len)
 		len = ft_strlen(s);
 	if ((size_t) start >= ft_strlen(s))
 		return (ft_strdup(""));
-	substr = (char *)malloc((len + 1) * sizeof(char));
+	substr = (char *)calloc((len + 1) , sizeof(char));
 	if (!substr)
 		return (NULL);
 	while (j < len)
@@ -85,7 +85,7 @@ char	**ft_split(char *s, char c)
 	if (!s)
 		return (NULL);
 	i = 0;
-	ret = malloc(sizeof(char *) * (get_word(s, c) + 1));
+	ret = calloc(sizeof(char *) , (get_word(s, c) + 1));
 	if (!ret)
 		return (NULL);
 	while (*s)

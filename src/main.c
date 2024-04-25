@@ -30,7 +30,7 @@ void	ft_print_mat(char **mat)
 		x = 0;
 		while (mat[y][x])
 		{
-			write(1, &mat[y][x], 1);
+			
 			x++;
 		}
 		y++;
