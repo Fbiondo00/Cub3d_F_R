@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 02:11:15 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/18 20:23:24 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/26 00:03:54 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int *get_rgb(t_game *game, int color)
         free_matrix((void **)mat);
         clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_MAP_COLOR, NULL));
     }
-
     return (char_matrix_to_int(game, mat));
 }
 

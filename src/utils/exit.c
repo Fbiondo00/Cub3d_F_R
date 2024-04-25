@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 23:43:38 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/24 15:22:30 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/26 01:06:30 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	free_matrix(void **matrix)
 	int	i;
 
 	i = 0;
-	    while (matrix[i])
-        {
-            free(matrix[i]);
-            i++;
-        }	
+	while (matrix[i])
+    {
+        free(matrix[i]);
+        i++;
+    }	
     if(matrix)
     {
 	    free(matrix);
@@ -29,22 +29,6 @@ void	free_matrix(void **matrix)
     }
     return ;
 
-}
-
-void free_color_and_walls(t_game *game)
-{
-    if (game->type[0].path)
-        free(game->type[0].path);
-    if (game->type[1].path)
-        free(game->type[1].path);
-      if (game->walls[0].path)
-       free(game->walls[0].path);
-      if (game->walls[1].path)
-        free(game->walls[1].path);
-      if (game->walls[2].path)
-        free(game->walls[2].path);
-      if (game->walls[3].path)
-        free(game->walls[3].path);
 }
 
 
@@ -62,12 +46,28 @@ int throw_exception(char *msg, char *specific, char *sub_specific)
     return (EXIT_FAILURE);
 }
 
+void free_color_and_walls(t_game *game)
+{
+   if(game->type[0].path)
+        free(game->type[0].path);
+     if(game->type[1].path)
+        free(game->type[1].path);
+    if(game->walls[0].path)
+        free(game->walls[0].path);
+    if(game->walls[1].path)
+        free(game->walls[1].path);
+    if(game->walls[2].path)
+        free(game->walls[2].path);
+    if(game->walls[3].path)
+        free(game->walls[3].path);
+    
+}
+
+
 // exit status SUCCESS -> msg == NULL
 // exit status ERROR -> msg != NULL
 void clean_exit(t_game *game, int exit_status)
 {
-
-
     free_matrix((void **)game->map);
     free_matrix((void **)game->raw_file);
     free_matrix((void **)game->pixels);
@@ -79,11 +79,4 @@ void clean_exit(t_game *game, int exit_status)
         free(game->mlx);
     }
     exit(exit_status);
-    // mlx + win + loop_end
-    // free_data(matrix)
-    // free_texture
-    // free_pixels
-    // free_texture_info
-    // free_map
-
 }

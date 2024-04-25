@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:50:28 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/24 15:25:42 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/26 00:17:23 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/cube.h"
 
 //valgrind --leak-check=full --track-origins=yes ./cub3d assets/maps/1.cub
 
 
-#include "../include/cube.h"
-
-//TODO:
-// ./obj?
-// check NSWE, map.exc
 
 void	ft_print_mat(char **mat)
 {
@@ -30,7 +27,7 @@ void	ft_print_mat(char **mat)
 		x = 0;
 		while (mat[y][x])
 		{
-			
+			write(1, &mat[y][x], 1);
 			x++;
 		}
 		y++;
@@ -40,15 +37,19 @@ void	ft_print_mat(char **mat)
 
 void build_game(t_game *game)
 {
+    if (game->argc != 2)
+        clean_exit(game, throw_exception(ERR_ARGC, NULL, NULL));
     // 0)INIT STRUCTURES TO DEFAULT VALUES
     init_game(game); // -> ??
-    //      0.A) MLX CONFIGURATION  ->done
-    //      0.B)init mlx && win
+
 
     // 1)CHECK ARGC && .CUB EXTENSION
     check_input(game, CUB, game->argv[1]);
+    
+    //      1.A) MLX CONFIGURATION  ->done
+    //      1.B)init mlx && win
     set_mlx(game);
-    //parse_map(game); 
+    
     // 2.A)initial_parse file cub
     //      2.A.1)read line numbers
     //      2.A.2) alloc **matr && read file      ->done
@@ -105,8 +106,6 @@ int main(int argc, char **argv)
     
     game.argc = argc;
     game.argv = argv;
-    if (argc != 2)
-        exit(0);
     build_game(&game);
     start_game(&game);
     run_game(&game);
