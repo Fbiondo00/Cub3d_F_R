@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 01:21:50 by flaviobiond       #+#    #+#             */
-/*   Updated: 2024/04/26 01:28:15 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/26 02:54:09 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ void	rotate_camera(t_game *m, float cos2, float sin2)
 	m->player.cam_plane.y = old_plane_x * sin2 + m->player.cam_plane.y * cos2;
 }
 
-int	mause_controll(int x, int y, t_game *m)
+int	mouse_control(int x, int y, t_game *m)
 {
 	(void)y;
-	if (m->xmause != 42)
+	if (m->xmouse != 42)
 	{
-		if (x - m->xmause < 0)
+		if (x - m->xmouse < 0)
 			rotate_camera(m, cos((.05 * m->sp)), sin((.05 * m->sp)));
 		else
 			rotate_camera(m, cos((-.05 * m->sp)), sin((-.05 * m->sp)));
 	}
-	m->xmause = x;
+	m->xmouse = x;
 	return (0);
 }

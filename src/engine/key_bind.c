@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_bind.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 01:03:17 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/26 01:27:56 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/26 02:54:01 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ int key_release(int keycode, t_game *game)
     return (0);
 }
 
+// mlx hooks config
 void key_bind(t_game *game)
 {
     mlx_hook(game->mlx_win, 17, 0, quit, game);
     mlx_hook(game->mlx_win, 2, 1L << 0, key_press, game);
     mlx_hook(game->mlx_win, 3, 1L << 1, key_release, game);
-    mlx_hook(game->mlx_win, 6, 1L << 6, mause_controll, game);
-    // mouse rotation è bonus
+    mlx_hook(game->mlx_win, 6, 1L << 6, mouse_control, game);
 }

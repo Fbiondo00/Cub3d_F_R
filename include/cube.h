@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flaviobiondo <flaviobiondo@student.42.f    +#+  +:+       +#+        */
+/*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:52:12 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/26 01:28:36 by flaviobiond      ###   ########.fr       */
+/*   Updated: 2024/04/26 02:54:27 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,30 +84,14 @@ typedef struct s_img
 	int		height;
 } t_img;
 
-// typedef struct s_img
-// {
-//     char *texture_path;
-//     void *img;
-//     void *addr;
-//     int bpp;
-//     int line_length;
-//     int endian;
-//     int width;
-//     int height;
-// } t_img;
-
 typedef struct s_ray
 {
     t_coordinate direction;
-    // player position
     t_coordinate player_pos;
-    // DDA Algorithm elements
     t_coordinate step;
     t_coordinate side_distance;
     t_coordinate delta_distance;
-    // cardinal's .xpm to render
     int cardinal;
-    // --
     double ndc;
     int side;
     double wall_dist;
@@ -115,22 +99,20 @@ typedef struct s_ray
     int line_height;
     int draw_start;
     int draw_end;
-    // -- line?
-    double s; //step
+    double s;
     double pos;
 } t_ray;
 
 typedef struct s_player
 {
+    char dir;
+    int     rotate;
     t_coordinate position;
     t_coordinate direction;
-    char dir;
     t_coordinate cam_plane;
-    // - key press -
     t_coordinate move;
-    int     rotate;
-} t_player;
 
+} t_player;
 
 typedef struct s_color
 {
@@ -151,27 +133,21 @@ typedef struct s_game
     int     map_len;
     long    old_time;
     int     fps;
-    // ---
     char     **raw_file;
     int     n_lines_file;
     int     map_transferred;
     char    *path;
-    // ---
     double  pix_step;
     double  pix_pos;
     int     **pixels;
     int     **textures;
+    int				sp;
+	int				xmouse;
     t_ray ray;
     t_player player;
-    // NSWE
     t_img   walls[4];
-    // FLOOR - CEALING
     t_color type[2];
-        // ---
-    int				sp;
-	int				xmause;
 } t_game;
-
 
 //UTILS
 void    ft_printstr_fd(char *str, int fd);
@@ -181,7 +157,6 @@ int     ft_isspace(int c);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
 char    *ft_strchr(char *s, char ch);
 char	*ft_strdup(char *s1);
-
 
 //INITIALIZER
 //--init_structures.c
@@ -212,8 +187,6 @@ int  throw_exception(char *msg, char *specific, char *sub_specific);
 void	*ft_calloc(int count, int size);
 int	ft_atoi(const char *str);
 char	**ft_split(char *s, char c);
-void print_ray_stats(t_game *game);
-void print_player_stats(t_game *game);
 
 //CHECKER
 //--file.c
@@ -238,6 +211,5 @@ void parse_player(t_game *game);
 //--key_bind.c
 void key_bind(t_game *game);
 int has_moved(t_game *game);
-
-int	mause_controll(int x, int y, t_game *game);
+int	mouse_control(int x, int y, t_game *m);
 #endif
