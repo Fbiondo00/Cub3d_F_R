@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:52:12 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/26 02:54:27 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/26 03:25:42 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_ray
 typedef struct s_player
 {
     char dir;
-    int     rotate;
+    double     rotate;
     t_coordinate position;
     t_coordinate direction;
     t_coordinate cam_plane;
@@ -141,8 +141,8 @@ typedef struct s_game
     double  pix_pos;
     int     **pixels;
     int     **textures;
-    int				sp;
-	int				xmouse;
+    double				sp;
+	double				xmouse;
     t_ray ray;
     t_player player;
     t_img   walls[4];
@@ -211,5 +211,5 @@ void parse_player(t_game *game);
 //--key_bind.c
 void key_bind(t_game *game);
 int has_moved(t_game *game);
-int	mouse_control(int x, int y, t_game *m);
+int	mouse_control(int x,int y, t_game *m);
 #endif

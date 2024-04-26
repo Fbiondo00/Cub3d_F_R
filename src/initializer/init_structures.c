@@ -6,7 +6,7 @@
 /*   By: rdolzi <rdolzi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 23:41:09 by rdolzi            #+#    #+#             */
-/*   Updated: 2024/04/26 02:48:42 by rdolzi           ###   ########.fr       */
+/*   Updated: 2024/04/26 03:02:44 by rdolzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void init_game(t_game *game)
     game->map_transferred = 0;
     game->pixels = NULL;
     game->textures = NULL;
-    game->xmouse = 42;
-    game->sp = 1;
+    game->xmouse = 42.0;
+    game->sp = 1.0;
     init_internal_structures(game);
     init_ray(game);
     init_player(game);
