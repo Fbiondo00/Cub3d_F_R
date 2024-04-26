@@ -115,6 +115,8 @@ void	parse_space(t_game *game)
 		}
 		y++;
 	}
+	if(c != 1)
+		clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_PLAYER_DUPLICATE, NULL));
 }
 
 int	count_tabs(char *str)
@@ -186,6 +188,8 @@ void convert_tab_space(t_game *game)
 int parse_map(t_game *game)
 {
 	convert_tab_space(game);
+	if(check_wall(game))
+		clean_exit(game, throw_exception(MAP_EXCEPTION, ERR_MAP_WALLS, NULL));
 	check_frame(game);
 	parse_space(game);   
 	return 0;

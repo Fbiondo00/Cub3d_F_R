@@ -65,9 +65,13 @@ void free_color_and_walls(t_game *game)
 
 void clean_exit(t_game *game, int exit_status)
 {
+    if(game->map)
     free_matrix((void **)game->map);
+    if(game->raw_file)
     free_matrix((void **)game->raw_file);
+    if(game->pixels)
     free_matrix((void **)game->pixels);
+    if(game->textures)
     free_matrix((void **)game->textures);
     free_color_and_walls(game);
     if (game->mlx && game->mlx_win)
